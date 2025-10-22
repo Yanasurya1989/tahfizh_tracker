@@ -46,23 +46,28 @@ class PresensiController extends Controller
         $start = $request->input('start', \Carbon\Carbon::today()->startOfMonth()->toDateString());
         $end = $request->input('end', \Carbon\Carbon::today()->toDateString());
 
-        $rekap = \App\Models\Presensi::whereBetween('tanggal', [$start, $end])
+        $rekap = Presensi::whereBetween('tanggal', [$start, $end])
             ->select(
                 'anggota_id',
                 \DB::raw('SUM(hadir) as total_hadir'),
                 \DB::raw('COUNT(*) - SUM(hadir) as total_tidak_hadir')
             )
             ->groupBy('anggota_id')
-            ->with([
-                'anggota',
-                // relasi untuk mengambil alasan ketidakhadiran
-                'anggota.presensis' => function ($q) use ($start, $end) {
-                    $q->whereBetween('tanggal', [$start, $end])
-                        ->where('hadir', false)
-                        ->whereNotNull('alasan');
-                }
-            ])
-            ->get();
+            ->with(['anggota.presensis' => function ($q) use ($start, $end) {
+                $q->whereBetween('tanggal', [$start, $end])
+                    ->where('hadir', false)
+                    ->whereNotNull('alasan');
+            }])
+            ->get()
+            ->map(function ($item) {
+                $item->keterangan_ketidakhadiran = $item->anggota->presensis->map(function ($p) {
+                    return [
+                        'tanggal' => $p->tanggal,
+                        'alasan'  => $p->alasan
+                    ];
+                });
+                return $item;
+            });
 
         return view('presensi.rekap', compact('rekap', 'start', 'end'));
     }
