@@ -6,9 +6,19 @@
     <div class="container py-4">
 
         {{-- Judul Halaman --}}
-        <div class="text-center mb-5">
-            <h1 class="fw-bold text-success mb-3">🌿 Selamat Datang di TahfidzTracker</h1>
-            <p class="text-muted">Sistem Rekap Perkembangan Hafalan Anggota UPA</p>
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-success mb-2">🌿 Selamat Datang di TahfidzTracker</h1>
+            <p class="text-muted mb-4">Sistem Rekap Perkembangan Hafalan Anggota UPA</p>
+
+            {{-- 🔹 Tambahan Menu Akses Cepat --}}
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ route('presensi.index') }}" class="btn btn-outline-success">
+                    📝 Input Presensi
+                </a>
+                <a href="{{ route('presensi.rekap') }}" class="btn btn-outline-primary">
+                    📊 Rekap Presensi
+                </a>
+            </div>
         </div>
 
         {{-- Statistik Utama --}}

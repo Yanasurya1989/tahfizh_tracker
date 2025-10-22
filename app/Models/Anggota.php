@@ -19,4 +19,9 @@ class Anggota extends Model
     {
         return $this->hasMany(InputHafalan::class);
     }
+
+    public function presensis()
+    {
+        return $this->hasMany(\App\Models\Presensi::class);
+    }
 }
