@@ -10,9 +10,9 @@
                 ⬅️ Kembali ke Rekap
             </a>
 
-            <a href="{{ route('presensi.rekap') }}" class="btn btn-outline-secondary shadow-sm">
+            {{-- <a href="{{ route('presensi.rekap') }}" class="btn btn-outline-secondary shadow-sm">
                 ⬅️ Kembali ke Rekap
-            </a>
+            </a> --}}
 
         </div>
 
