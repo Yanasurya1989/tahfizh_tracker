@@ -34,6 +34,7 @@
                             <th>Total Hadir</th>
                             <th>Total Tidak Hadir</th>
                             <th>Keterangan Ketidakhadiran</th>
+                            <th>Detil</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +56,12 @@
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('presensi.riwayat', $r->anggota_id) }}"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-clock-history"></i> Lihat Riwayat
+                                    </a>
                                 </td>
                             </tr>
                         @empty

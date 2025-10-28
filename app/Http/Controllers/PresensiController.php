@@ -71,4 +71,15 @@ class PresensiController extends Controller
 
         return view('presensi.rekap', compact('rekap', 'start', 'end'));
     }
+
+    public function riwayat($anggota_id)
+    {
+        $anggota = \App\Models\Anggota::findOrFail($anggota_id);
+
+        $riwayat = \App\Models\Presensi::where('anggota_id', $anggota_id)
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        return view('presensi.riwayat', compact('anggota', 'riwayat'));
+    }
 }

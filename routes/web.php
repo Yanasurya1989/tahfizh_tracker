@@ -27,3 +27,5 @@ Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.in
 Route::post('/presensi', [PresensiController::class, 'store'])->name('presensi.store');
 
 Route::get('/presensi/rekap', [PresensiController::class, 'rekap'])->name('presensi.rekap');
+
+Route::get('/presensi/riwayat/{anggota_id}', [PresensiController::class, 'riwayat'])->name('presensi.riwayat');
