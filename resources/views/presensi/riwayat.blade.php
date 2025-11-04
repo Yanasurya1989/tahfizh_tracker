@@ -9,11 +9,6 @@
             <a href="{{ route('presensi.rekap') }}" class="btn btn-outline-secondary">
                 ⬅️ Kembali ke Rekap
             </a>
-
-            {{-- <a href="{{ route('presensi.rekap') }}" class="btn btn-outline-secondary shadow-sm">
-                ⬅️ Kembali ke Rekap
-            </a> --}}
-
         </div>
 
         <div class="card shadow-sm">
@@ -24,6 +19,7 @@
                             <th>Tanggal</th>
                             <th>Status</th>
                             <th>Alasan (Jika Tidak Hadir)</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,10 +34,25 @@
                                     @endif
                                 </td>
                                 <td>{{ $r->alasan ?? '-' }}</td>
+                                <td>
+                                    <a href="{{ route('presensi.edit', $r->id) }}" class="btn btn-sm btn-warning">
+                                        ✏️ Update
+                                    </a>
+
+                                    <form action="{{ route('presensi.destroy', $r->id) }}" method="POST"
+                                        style="display:inline-block"
+                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            🗑️ Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="text-muted">Belum ada riwayat presensi.</td>
+                                <td colspan="4" class="text-muted">Belum ada riwayat presensi.</td>
                             </tr>
                         @endforelse
                     </tbody>

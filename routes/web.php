@@ -29,3 +29,7 @@ Route::post('/presensi', [PresensiController::class, 'store'])->name('presensi.s
 Route::get('/presensi/rekap', [PresensiController::class, 'rekap'])->name('presensi.rekap');
 
 Route::get('/presensi/riwayat/{anggota_id}', [PresensiController::class, 'riwayat'])->name('presensi.riwayat');
+
+Route::get('/presensi/{id}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
+Route::put('/presensi/{id}', [PresensiController::class, 'update'])->name('presensi.update');
+Route::delete('/presensi/{id}', [PresensiController::class, 'destroy'])->name('presensi.destroy');

@@ -82,4 +82,37 @@ class PresensiController extends Controller
 
         return view('presensi.riwayat', compact('anggota', 'riwayat'));
     }
+
+    public function edit($id)
+    {
+        $presensi = Presensi::findOrFail($id);
+        $anggota = Anggota::find($presensi->anggota_id);
+
+        return view('presensi.edit', compact('presensi', 'anggota'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'hadir' => 'required|boolean',
+            'alasan' => 'nullable|string',
+        ]);
+
+        $presensi = Presensi::findOrFail($id);
+        $presensi->update($validated);
+
+        return redirect()->route('presensi.riwayat', $presensi->anggota_id)
+            ->with('success', 'Data presensi berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $presensi = Presensi::findOrFail($id);
+        $anggota_id = $presensi->anggota_id;
+
+        $presensi->delete();
+
+        return redirect()->route('presensi.riwayat', $anggota_id)
+            ->with('success', 'Data presensi berhasil dihapus.');
+    }
 }
