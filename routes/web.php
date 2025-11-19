@@ -33,3 +33,8 @@ Route::get('/presensi/riwayat/{anggota_id}', [PresensiController::class, 'riwaya
 Route::get('/presensi/{id}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
 Route::put('/presensi/{id}', [PresensiController::class, 'update'])->name('presensi.update');
 Route::delete('/presensi/{id}', [PresensiController::class, 'destroy'])->name('presensi.destroy');
+
+use App\Http\Controllers\MutabaahController;
+
+Route::resource('mutabaah', MutabaahController::class);
+Route::get('mutabaah-rekap', [MutabaahController::class, 'rekap'])->name('mutabaah.rekap');
